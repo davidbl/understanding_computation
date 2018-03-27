@@ -22,4 +22,8 @@ class Value
   def inspect
     "«#{self}»"
   end
+
+  def ==(other)
+    other.is_a?(self.class) && other.value == value
+  end
 end

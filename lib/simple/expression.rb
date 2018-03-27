@@ -13,13 +13,7 @@ class Expression
   end
 
   def reduce
-    if left.reducible?
-      Add.new(left.reduce, right)
-    elsif right.reducible?
-      Add.new(left, right.reduce)
-    else
-      Number.new(left.value + right.value)
-    end
+    raise "Not Implemented"
   end
 
   def to_s
@@ -28,5 +22,9 @@ class Expression
 
   def inspect
     "«#{self}»"
+  end
+
+  def ==(other)
+    other.is_a?(self.class) && other.left == left && other.right == right
   end
 end
