@@ -9,6 +9,8 @@ require "simple/value"
 require "simple/number"
 require "simple/boolean"
 
+require "simple/variable"
+
 require "simple/machine"
 
 module Simple

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class Machine
-  attr_accessor :expression, :verbose
+  attr_accessor :expression, :verbose, :environment
 
-  def initialize(expression, verbose = false)
+  def initialize(expression, environment = {}, verbose = false)
     @expression = expression
+    @environment = environment
     @verbose = verbose
   end
 
@@ -12,7 +13,7 @@ class Machine
     expr = @expression
     while expr.reducible?
       output(expr)
-      expr = expr.reduce
+      expr = expr.reduce(environment)
     end
     output(expr)
     expr

@@ -12,11 +12,11 @@ class Expression
     true
   end
 
-  def reduce
+  def reduce(env = {})
     if left.reducible?
-      self.class.new(left.reduce, right)
+      self.class.new(left.reduce(env), right)
     elsif right.reducible?
-      self.class.new(left, right.reduce)
+      self.class.new(left, right.reduce(env))
     else
       reducer
     end
