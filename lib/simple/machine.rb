@@ -2,31 +2,25 @@
 
 class Machine
   attr_accessor :expression, :verbose
-  attr_reader :original_expression
 
-  def initialize(expression, verbose = true)
+  def initialize(expression, verbose = false)
     @expression = expression
-    @original_expression = expression.dup
     @verbose = verbose
   end
 
   def run
-    while expression.reducible?
-      output
-      step
+    expr = @expression
+    while expr.reducible?
+      output(expr)
+      expr = expr.reduce
     end
-    output
-    expression
+    output(expr)
+    expr
   end
 
   private
 
-  def step
-    @expression = @expression.reduce
+  def output(expr)
+    puts expr if verbose
   end
-
-  def output
-    puts expression if verbose
-  end
-
 end

@@ -1,22 +1,19 @@
 require_relative "../../test_helper"
 
 describe Machine do
+  let(:m1) { Multiply.new(Number.new(6), Number.new(5)) }
+  let(:m2) { Multiply.new(Number.new(4), Number.new(3)) }
+  let(:add) { Add.new(m1, m2) }
+  let(:machine) { Machine.new(add) }
+
   it "runs expressions" do
-    m1 = Multiply.new(Number.new(6), Number.new(5))
-    m2 = Multiply.new(Number.new(4), Number.new(3))
-    a3 = Add.new(m1, m2)
-    m = Machine.new(a3, false)
-    m.run
-    m.expression.must_equal Number.new(42)
+    result = machine.run
+    assert_equal(result, Number.new(42))
   end
 
-  it "preserves the original expression" do
-    m1 = Multiply.new(Number.new(6), Number.new(5))
-    m2 = Multiply.new(Number.new(4), Number.new(3))
-    a3 = Add.new(m1, m2)
-    m = Machine.new(a3, false)
-    m.run
-    m.expression.must_equal Number.new(42)
-    m.original_expression.must_equal a3
+  it "does not mutate the expression" do
+    result = machine.run
+    assert_equal(result, Number.new(42))
+    assert_equal(machine.expression, add)
   end
 end
